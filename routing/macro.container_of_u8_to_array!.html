@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `container_of_u8_to_array!` macro in crate `routing`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, container_of_u8_to_array!">
+
+    <title>routing::container_of_u8_to_array! - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    <link rel="shortcut icon" href="http://maidsafe.net/img/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../routing/index.html'><img src='http://maidsafe.net/img/Resources/branding/maidsafe_logo.fab2.png' alt='' width='100'></a>
+        <p class='location'><a href='index.html'>routing</a></p><script>window.sidebarCurrent = {name: 'container_of_u8_to_array!', ty: 'macro', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content macro">
+<h1 class='fqn'><span class='in-band'><a href='index.html'>routing</a>::<wbr><a class='macro' href=''>container_of_u8_to_array!</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="#" title="collapse all docs">[&minus;]</a>
+        </span><a id='src-94330' class='srclink' href='../src/routing/macros.rs.html#37-49' title='goto source code'>[src]</a></span></h1>
+<pre class='rust macro'>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>container_of_u8_to_array</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>container</span>:<span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>size</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {{
+        <span class='kw'>if</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>container</span>.<span class='ident'>len</span>() <span class='op'>!=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>size</span> {
+            <span class='prelude-val'>None</span>
+        } <span class='kw'>else</span> {
+            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arr</span> <span class='op'>=</span> [<span class='number'>0u8</span>; <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>size</span>];
+            <span class='kw'>for</span> <span class='ident'>element</span> <span class='kw'>in</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>container</span>.<span class='ident'>into_iter</span>().<span class='ident'>enumerate</span>() {
+                <span class='ident'>arr</span>[<span class='ident'>element</span>.<span class='number'>0</span>] <span class='op'>=</span> <span class='ident'>element</span>.<span class='number'>1</span>;
+            }
+            <span class='prelude-val'>Some</span>(<span class='ident'>arr</span>)
+        }
+    }};
+}
+</pre>
+<div class='docblock'><p>Convert a container of <code>u8</code>s to an array.  If the container is not the exact size specified,
+<code>None</code> is returned.  Otherwise, all of the elements are moved into the array.</p>
+
+<h2 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h2><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span>::<span class='ident'>new</span>();
+<span class='ident'>data</span>.<span class='ident'>push</span>(<span class='number'>1</span>);
+<span class='ident'>data</span>.<span class='ident'>push</span>(<span class='number'>2</span>);
+<span class='kw'>let</span> <span class='ident'>data_copy</span> <span class='op'>=</span> <span class='ident'>data</span>.<span class='ident'>clone</span>();
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='macro'>container_of_u8_to_array</span><span class='macro'>!</span>(<span class='ident'>data</span>, <span class='number'>2</span>).<span class='ident'>is_some</span>());
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='macro'>container_of_u8_to_array</span><span class='macro'>!</span>(<span class='ident'>data_copy</span>, <span class='number'>3</span>).<span class='ident'>is_none</span>());
+</pre>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "routing";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

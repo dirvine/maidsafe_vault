@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `routing` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, routing">
+
+    <title>routing - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    <link rel="shortcut icon" href="http://maidsafe.net/img/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../routing/index.html'><img src='http://maidsafe.net/img/Resources/branding/maidsafe_logo.fab2.png' alt='' width='100'></a>
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'routing', ty: 'mod', relpath: '../'};</script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>routing</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="#" title="collapse all docs">[&minus;]</a>
+        </span><a id='src-0' class='srclink' href='../src/routing/lib.rs.html#18-92' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>The main API for routing nodes (this is where you give the network its rules)</p>
+
+<p>The network will report <strong>from authority your authority</strong> and validate cryptographically any message via group consensus.
+This means any facade you implement will set out what you deem
+to be a valid operation. Routing will provide a valid message sender and authority that will
+allow you to set up many decentralised services</p>
+
+<p>The data types are encoded with Concise Binary Object Representation (CBOR).</p>
+
+<p>This allows certain tags to be available to routing, facilitating fields such as
+data.name(), when calculating authority.</p>
+
+<p>We use Iana tag representations <a href="http://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">http://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml</a></p>
+
+<p>Please define your own for this library. These tags are non optional and your data MUST meet
+the requirements and implement the following tags:</p>
+
+<pre><code class="language-text">tag: 5483_0 -&gt; name [u8; 64] type
+tag: 5483_1 -&gt; XXXXXXXXXXXXXX
+</code></pre>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='client_interface/index.html'
+                               title='routing::client_interface'>client_interface</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='error/index.html'
+                               title='routing::error'>error</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='node_interface/index.html'
+                               title='routing::node_interface'>node_interface</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='routing_client/index.html'
+                               title='routing::routing_client'>routing_client</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='routing_node/index.html'
+                               title='routing::routing_node'>routing_node</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='sendable/index.html'
+                               title='routing::sendable'>sendable</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='test_utils/index.html'
+                               title='routing::test_utils'>test_utils</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='types/index.html'
+                               title='routing::types'>types</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                </table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='macro' href='macro.container_of_u8_to_array!.html'
+                               title='routing::container_of_u8_to_array!'>container_of_u8_to_array!</a></td>
+                        <td class='docblock short'>
+                             <p>Convert a container of <code>u8</code>s to an array.  If the container is not the exact size specified,
+<code>None</code> is returned.  Otherwise, all of the elements are moved into the array.</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.NameType.html'
+                               title='routing::NameType'>NameType</a></td>
+                        <td class='docblock short'>
+                             <p>NameType can be created using the new function by passing ID as it’s parameter.</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='enum' href='enum.Action.html'
+                               title='routing::Action'>Action</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.closer_to_target.html'
+                               title='routing::closer_to_target'>closer_to_target</a></td>
+                        <td class='docblock short'>
+                             <p>Returns true if <code>lhs</code> is closer to <code>target</code> than <code>rhs</code>.  &quot;Closer&quot; here is as per the Kademlia
+notion of XOR distance, i.e. the distance between two <code>NameType</code>s is the bitwise XOR of their
+values.</p>
+
+                        </td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "routing";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

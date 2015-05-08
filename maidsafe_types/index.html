@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `maidsafe_types` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, maidsafe_types">
+
+    <title>maidsafe_types - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    <link rel="shortcut icon" href="http://maidsafe.net/img/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../maidsafe_types/index.html'><img src='http://maidsafe.net/img/Resources/branding/maidsafe_logo.fab2.png' alt='' width='100'></a>
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'maidsafe_types', ty: 'mod', relpath: '../'};</script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>maidsafe_types</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="#" title="collapse all docs">[&minus;]</a>
+        </span><a id='src-0' class='srclink' href='../src/maidsafe_types/lib.rs.html#18-161' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'>
+<h1 id="safe-network-data-types" class='section-header'><a
+                           href="#safe-network-data-types">Safe Network Data Types</a></h1>
+<p>This library implements the fundimental data types used on the SAFE Network
+The serialisation mechnism used is <code>cbor</code>` which is an IETF Rfc <a href="http://tools.ietf.org/html/rfc7049">7049</a>
+for serialising data and is an attempt to upgrade messagepack and ASN.1
+On disk serialisation is <a href="https://www.ietf.org/rfc/rfc4627.txt">JSON</a></p>
+
+<p><a href="https://github.com/dirvine/maidsafe_types">Project github page</a></p>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use id::{<a class='struct' href='../maidsafe_types/id/maid/struct.Maid.html' title='maidsafe_types::id::maid::Maid'>Maid</a>, <a class='struct' href='../maidsafe_types/id/mpid/struct.Mpid.html' title='maidsafe_types::id::mpid::Mpid'>Mpid</a>, <a class='struct' href='../maidsafe_types/id/an_maid/struct.AnMaid.html' title='maidsafe_types::id::an_maid::AnMaid'>AnMaid</a>, <a class='struct' href='../maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a>, <a class='struct' href='../maidsafe_types/id/an_mpid/struct.AnMpid.html' title='maidsafe_types::id::an_mpid::AnMpid'>AnMpid</a>, <a class='struct' href='../maidsafe_types/id/public_maid/struct.PublicMaid.html' title='maidsafe_types::id::public_maid::PublicMaid'>PublicMaid</a>, <a class='struct' href='../maidsafe_types/id/public_mpid/struct.PublicMpid.html' title='maidsafe_types::id::public_mpid::PublicMpid'>PublicMpid</a>};</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='data/index.html'
+                               title='maidsafe_types::data'>data</a></td>
+                        <td class='docblock short'>
+                             <p>Holds the structs related to data such as ImmutableData and StructuredData</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='helper/index.html'
+                               title='maidsafe_types::helper'>helper</a></td>
+                        <td class='docblock short'>
+                             <p>Helper provides helper functions for array to vector conversions and vice versa</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='id/index.html'
+                               title='maidsafe_types::id'>id</a></td>
+                        <td class='docblock short'>
+                             <p>Holds the structs for Id related Types such as Maid, AnMaid, Mpid, etc</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.ImmutableData.html'
+                               title='maidsafe_types::ImmutableData'>ImmutableData</a></td>
+                        <td class='docblock short'>
+                             <p>ImmutableData</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.Payload.html'
+                               title='maidsafe_types::Payload'>Payload</a></td>
+                        <td class='docblock short'>
+                             <p>Encoded type serialised and ready to send on wire</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.StructuredData.html'
+                               title='maidsafe_types::StructuredData'>StructuredData</a></td>
+                        <td class='docblock short'>
+                             <p>StructuredData</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='enum' href='enum.CryptoError.html'
+                               title='maidsafe_types::CryptoError'>CryptoError</a></td>
+                        <td class='docblock short'>
+                             <p>Crypto Error types</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='enum' href='enum.PayloadTypeTag.html'
+                               title='maidsafe_types::PayloadTypeTag'>PayloadTypeTag</a></td>
+                        <td class='docblock short'>
+                             <p>Types of payload that will be exchange among vaults
+MaidManager : PublicMaid, PublicAnMaid
+All : Datatype -- ImmutableData, StructuredData</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='trait' href='trait.Random.html'
+                               title='maidsafe_types::Random'>Random</a></td>
+                        <td class='docblock short'>
+                             <p>Random trait is used to generate random instances.
+Used in the test mod</p>
+
+                        </td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "maidsafe_types";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

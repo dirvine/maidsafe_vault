@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `PublicAnMaid` struct in crate `maidsafe_types`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, PublicAnMaid">
+
+    <title>maidsafe_types::id::public_an_maid::PublicAnMaid - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    <link rel="shortcut icon" href="http://maidsafe.net/img/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../../maidsafe_types/index.html'><img src='http://maidsafe.net/img/Resources/branding/maidsafe_logo.fab2.png' alt='' width='100'></a>
+        <p class='location'><a href='../../index.html'>maidsafe_types</a>::<wbr><a href='../index.html'>id</a>::<wbr><a href='index.html'>public_an_maid</a></p><script>window.sidebarCurrent = {name: 'PublicAnMaid', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>maidsafe_types</a>::<wbr><a href='../index.html'>id</a>::<wbr><a href='index.html'>public_an_maid</a>::<wbr><a class='struct' href=''>PublicAnMaid</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="#" title="collapse all docs">[&minus;]</a>
+        </span><a id='src-5217' class='srclink' href='../../../src/maidsafe_types/id/public_an_maid.rs.html#46-50' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct PublicAnMaid {
+    // some fields omitted
+}</pre><div class='docblock'><p>PublicAnMaid</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>sodiumoxide</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>maidsafe_types</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>routing</span>;
+<span class='comment'>// Generating public and secret keys using sodiumoxide</span>
+<span class='kw'>let</span> (<span class='ident'>pub_sign_key</span>, _) <span class='op'>=</span> <span class='ident'>sodiumoxide</span>::<span class='ident'>crypto</span>::<span class='ident'>sign</span>::<span class='ident'>gen_keypair</span>();
+<span class='kw'>let</span> (<span class='ident'>pub_asym_key</span>, _) <span class='op'>=</span> <span class='ident'>sodiumoxide</span>::<span class='ident'>crypto</span>::<span class='ident'>asymmetricbox</span>::<span class='ident'>gen_keypair</span>();
+<span class='comment'>// Create PublicAnMaid</span>
+<span class='kw'>let</span> <span class='ident'>pub_an_maid</span> <span class='op'>=</span> <span class='ident'>maidsafe_types</span>::<span class='ident'>PublicAnMaid</span>::<span class='ident'>new</span>((<span class='ident'>pub_sign_key</span>, <span class='ident'>pub_asym_key</span>), <span class='ident'>sodiumoxide</span>::<span class='ident'>crypto</span>::<span class='ident'>sign</span>::<span class='ident'>Signature</span>([<span class='number'>5u8</span>; <span class='number'>64</span>]), <span class='ident'>routing</span>::<span class='ident'>NameType</span>([<span class='number'>99u8</span>; <span class='number'>64</span>]));
+<span class='comment'>// Retrieving the values</span>
+<span class='kw'>let</span> <span class='kw-2'>ref</span> <span class='ident'>publicKeys</span> <span class='op'>=</span> <span class='ident'>pub_an_maid</span>.<span class='ident'>get_public_keys</span>();
+<span class='kw'>let</span> <span class='kw-2'>ref</span> <span class='ident'>signature</span> <span class='op'>=</span> <span class='ident'>pub_an_maid</span>.<span class='ident'>get_signature</span>();
+<span class='kw'>let</span> <span class='kw-2'>ref</span> <span class='ident'>name</span> <span class='op'>=</span> <span class='ident'>pub_an_maid</span>.<span class='ident'>get_name</span>();
+</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../../maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(public_keys: <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='struct' href='../../../sodiumoxide/crypto/sign/ed25519/struct.PublicKey.html' title='sodiumoxide::crypto::sign::ed25519::PublicKey'>PublicKey</a>, <a class='struct' href='../../../sodiumoxide/crypto/asymmetricbox/curve25519xsalsa20poly1305/struct.PublicKey.html' title='sodiumoxide::crypto::asymmetricbox::curve25519xsalsa20poly1305::PublicKey'>PublicKey</a>)</a>, signature: <a class='struct' href='../../../sodiumoxide/crypto/sign/ed25519/struct.Signature.html' title='sodiumoxide::crypto::sign::ed25519::Signature'>Signature</a>, name: <a class='struct' href='../../../routing/name_type/struct.NameType.html' title='routing::name_type::NameType'>NameType</a>) -&gt; <a class='struct' href='../../../maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a></code></h4>
+<div class='docblock'><p>new() is invoked to create an instance of the PublicAnMaid</p>
+</div><h4 id='method.get_public_keys' class='method'><code>fn <a href='#method.get_public_keys' class='fnname'>get_public_keys</a>(&amp;self) -&gt; &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='struct' href='../../../sodiumoxide/crypto/sign/ed25519/struct.PublicKey.html' title='sodiumoxide::crypto::sign::ed25519::PublicKey'>PublicKey</a>, <a class='struct' href='../../../sodiumoxide/crypto/asymmetricbox/curve25519xsalsa20poly1305/struct.PublicKey.html' title='sodiumoxide::crypto::asymmetricbox::curve25519xsalsa20poly1305::PublicKey'>PublicKey</a>)</a></code></h4>
+<div class='docblock'><p>Returns the PublicKeys</p>
+</div><h4 id='method.get_signature' class='method'><code>fn <a href='#method.get_signature' class='fnname'>get_signature</a>(&amp;self) -&gt; &amp;<a class='struct' href='../../../sodiumoxide/crypto/sign/ed25519/struct.Signature.html' title='sodiumoxide::crypto::sign::ed25519::Signature'>Signature</a></code></h4>
+<div class='docblock'><p>Returns the Signature</p>
+</div><h4 id='method.get_name' class='method'><code>fn <a href='#method.get_name' class='fnname'>get_name</a>(&amp;self) -&gt; &amp;<a class='struct' href='../../../routing/name_type/struct.NameType.html' title='routing::name_type::NameType'>NameType</a></code></h4>
+<div class='docblock'><p>Return the name</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../../../maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a class='struct' href='../../../maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../../maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='http://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='http://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='../../../routing/sendable/trait.Sendable.html' title='routing::sendable::Sendable'>Sendable</a> for <a class='struct' href='../../../maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a></code></h3><div class='impl-items'><h4 id='method.name' class='method'><code>fn <a href='../../../routing/sendable/trait.Sendable.html#method.name' class='fnname'>name</a>(&amp;self) -&gt; <a class='struct' href='../../../routing/name_type/struct.NameType.html' title='routing::name_type::NameType'>NameType</a></code></h4>
+<h4 id='method.type_tag' class='method'><code>fn <a href='../../../routing/sendable/trait.Sendable.html#method.type_tag' class='fnname'>type_tag</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code></h4>
+<h4 id='method.serialised_contents' class='method'><code>fn <a href='../../../routing/sendable/trait.Sendable.html#method.serialised_contents' class='fnname'>serialised_contents</a>(&amp;self) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;</code></h4>
+<h4 id='method.owner' class='method'><code>fn <a href='../../../routing/sendable/trait.Sendable.html#method.owner' class='fnname'>owner</a>(&amp;self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../routing/name_type/struct.NameType.html' title='routing::name_type::NameType'>NameType</a>&gt;</code></h4>
+<h4 id='method.refresh' class='method'><code>fn <a href='../../../routing/sendable/trait.Sendable.html#method.refresh' class='fnname'>refresh</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.merge' class='method'><code>fn <a href='../../../routing/sendable/trait.Sendable.html#method.merge' class='fnname'>merge</a>(&amp;self, _: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../routing/sendable/trait.Sendable.html' title='routing::sendable::Sendable'>Sendable</a>&gt;&gt;) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../routing/sendable/trait.Sendable.html' title='routing::sendable::Sendable'>Sendable</a>&gt;&gt;</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='../../../rustc_serialize/serialize/trait.Encodable.html' title='rustc_serialize::serialize::Encodable'>Encodable</a> for <a class='struct' href='../../../maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a></code></h3><div class='impl-items'><h4 id='method.encode' class='method'><code>fn <a href='../../../rustc_serialize/serialize/trait.Encodable.html#method.encode' class='fnname'>encode</a>&lt;E: <a class='trait' href='../../../rustc_serialize/serialize/trait.Encoder.html' title='rustc_serialize::serialize::Encoder'>Encoder</a>&gt;(&amp;self, e: &amp;mut E) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, E&gt;</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='../../../rustc_serialize/serialize/trait.Decodable.html' title='rustc_serialize::serialize::Decodable'>Decodable</a> for <a class='struct' href='../../../maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a></code></h3><div class='impl-items'><h4 id='method.decode' class='method'><code>fn <a href='../../../rustc_serialize/serialize/trait.Decodable.html#method.decode' class='fnname'>decode</a>&lt;D: <a class='trait' href='../../../rustc_serialize/serialize/trait.Decoder.html' title='rustc_serialize::serialize::Decoder'>Decoder</a>&gt;(d: &amp;mut D) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a>, D&gt;</code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../../maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../../maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a></code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "maidsafe_types";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

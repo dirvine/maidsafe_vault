@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Accumulator","Accumulator for various message types"],["Entry","entry in the accumulator"]]});

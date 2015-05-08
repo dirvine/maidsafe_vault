@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BLOCKBYTES",""],["HASHBYTES",""]],"fn":[["hash","`hash` hashes a message `m`. It returns a hash `h`."]],"struct":[["Digest","Digest-structure"]]});

@@ -1,0 +1,10 @@
+(function() {var implementors = {};
+implementors['maidsafe_types'] = ["impl <a class='trait' href='routing/sendable/trait.Sendable.html' title='routing::sendable::Sendable'>Sendable</a> for <a class='struct' href='maidsafe_types/id/an_mpid/struct.AnMpid.html' title='maidsafe_types::id::an_mpid::AnMpid'>AnMpid</a>","impl <a class='trait' href='routing/sendable/trait.Sendable.html' title='routing::sendable::Sendable'>Sendable</a> for <a class='struct' href='maidsafe_types/id/mpid/struct.Mpid.html' title='maidsafe_types::id::mpid::Mpid'>Mpid</a>","impl <a class='trait' href='routing/sendable/trait.Sendable.html' title='routing::sendable::Sendable'>Sendable</a> for <a class='struct' href='maidsafe_types/id/public_maid/struct.PublicMaid.html' title='maidsafe_types::id::public_maid::PublicMaid'>PublicMaid</a>","impl <a class='trait' href='routing/sendable/trait.Sendable.html' title='routing::sendable::Sendable'>Sendable</a> for <a class='struct' href='maidsafe_types/id/public_mpid/struct.PublicMpid.html' title='maidsafe_types::id::public_mpid::PublicMpid'>PublicMpid</a>","impl <a class='trait' href='routing/sendable/trait.Sendable.html' title='routing::sendable::Sendable'>Sendable</a> for <a class='struct' href='maidsafe_types/id/public_an_maid/struct.PublicAnMaid.html' title='maidsafe_types::id::public_an_maid::PublicAnMaid'>PublicAnMaid</a>","impl <a class='trait' href='routing/sendable/trait.Sendable.html' title='routing::sendable::Sendable'>Sendable</a> for <a class='struct' href='maidsafe_types/struct.StructuredData.html' title='maidsafe_types::StructuredData'>StructuredData</a>","impl <a class='trait' href='routing/sendable/trait.Sendable.html' title='routing::sendable::Sendable'>Sendable</a> for <a class='struct' href='maidsafe_types/struct.ImmutableData.html' title='maidsafe_types::ImmutableData'>ImmutableData</a>",];
+
+            if (window.register_implementors) {
+                window.register_implementors(implementors);
+            } else {
+                window.pending_implementors = implementors;
+            }
+        
+})()
