@@ -21,8 +21,6 @@ use crate::{
     Error, Network, Result,
 };
 use log::{error, info, trace, warn};
-use rand::{Rng, SeedableRng};
-use rand_chacha::ChaChaRng;
 use sn_data_types::{Address, Error as NdError, MsgEnvelope};
 use sn_routing::Event as RoutingEvent;
 use std::fmt::{self, Display, Formatter};
@@ -97,15 +95,13 @@ impl ClientGateway {
                         Err(e) => Err(e),
                     }
                 } else {
-                    match try_deserialize_handshake(&content, src) {
+                    match try_deserialize_handshake(&content) {
                         Ok(hs) => {
-                            let mut rng = rand::thread_rng();
-                            let mut rng = ChaChaRng::from_seed(rng.gen());
                             let _ = self
                                 .client_msg_handling
-                                .process_handshake(hs, src, send, &mut rng)
-                                .await;
-                            Ok(NodeOperation::NoOp)
+                                .process_handshake(hs, src, send)
+                                .await?;
+                                Ok(NodeOperation::NoOp)
                         }
                         Err(e) => Err(e),
                     }

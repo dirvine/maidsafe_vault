@@ -10,8 +10,7 @@ use crate::{utils, Network};
 use crate::{Error, Result};
 use dashmap::DashMap;
 use log::{debug, error, info, trace};
-use rand::{CryptoRng, Rng};
-use sn_data_types::{HandshakeRequest, HandshakeResponse, PublicKey, Signature};
+use sn_data_types::{HandshakeRequest, HandshakeResponse, PublicKey};
 use sn_routing::SendStream;
 use std::{
     fmt::{self, Display, Formatter},
@@ -26,12 +25,11 @@ use std::{
 /// Most notably, this is the handshake process
 /// taking place between a connecting client and
 /// the Elders of this section.
+#[allow(dead_code)] // FIXME
 pub struct Onboarding {
     node_id: PublicKey,
     routing: Network,
     clients: DashMap<SocketAddr, PublicKey>,
-    /// Map of new client connections to the challenge value we sent them.
-    client_candidates: DashMap<SocketAddr, (Vec<u8>, PublicKey)>,
 }
 
 impl Onboarding {
@@ -40,7 +38,6 @@ impl Onboarding {
             node_id,
             routing,
             clients: Default::default(),
-            client_candidates: Default::default(),
         }
     }
 
@@ -60,33 +57,25 @@ impl Onboarding {
     //     }
     // }
 
-    pub async fn onboard_client<G: CryptoRng + Rng>(
+    pub async fn onboard_client(
         &self,
         handshake: HandshakeRequest,
         peer_addr: SocketAddr,
         stream: &mut SendStream,
-        rng: &mut G,
     ) -> Result<()> {
         match handshake {
             HandshakeRequest::Bootstrap(client_key) => {
                 self.try_bootstrap(peer_addr, &client_key, stream).await
             }
             HandshakeRequest::Join(client_key) => {
-                self.try_join(peer_addr, client_key, stream, rng).await
+                self.try_join(peer_addr, client_key).await
             }
-            HandshakeRequest::ChallengeResult(signature) => {
-                self.receive_challenge_response(peer_addr, &signature)
-            }
+            _ => Err(Error::InvalidMessage) // FIXME 
         }
     }
 
     fn shall_bootstrap(&self, peer_addr: &SocketAddr) -> bool {
-        let is_bootstrapping = self.client_candidates.contains_key(peer_addr);
-        let is_bootstrapped = self.clients.contains_key(peer_addr);
-        if is_bootstrapped || is_bootstrapping {
-            return false;
-        }
-        true
+        !self.clients.contains_key(peer_addr)
     }
 
     async fn try_bootstrap(
@@ -137,12 +126,10 @@ impl Onboarding {
     }
 
     /// Handles a received join request from a client.
-    async fn try_join<G: CryptoRng + Rng>(
+    async fn try_join(
         &self,
         peer_addr: SocketAddr,
         client_key: PublicKey,
-        stream: &mut SendStream,
-        rng: &mut G,
     ) -> Result<()> {
         if self.clients.contains_key(&peer_addr) {
             info!(
@@ -156,79 +143,14 @@ impl Onboarding {
             self, client_key, peer_addr
         );
         if self.routing.matches_our_prefix(client_key.into()).await {
-            let challenge = if let Some(challenge_ref) = self.client_candidates.get(&peer_addr) {
-                let (challenge, _) = challenge_ref.to_owned();
-                challenge
-            } else {
-                let challenge = utils::random_vec(rng, 8);
-                let _ = self
-                    .client_candidates
-                    .insert(peer_addr, (challenge.clone(), client_key));
-                challenge
-            };
-
-            let bytes = utils::serialise(&HandshakeResponse::Challenge(self.node_id, challenge))?;
-
-            // Q: Hmmmm, what to do about this response.... do we need a duty response here?
-            let res = futures::executor::block_on(stream.send_user_msg(bytes));
-
-            match res {
-                Ok(()) => Ok(()),
-                Err(error) => {
-                    error!("Error sending on stream {:?}", error);
-                    Err(Error::Onboarding)
-                }
-            }
-        } else {
             debug!(
                 "Client {} ({}) wants to join us but we are not its client handler",
                 client_key, peer_addr
             );
             Err(Error::Onboarding)
-        }
+        } else { Ok(())}
     }
 
-    /// Handles a received challenge response.
-    ///
-    /// Checks that the response contains a valid signature of the challenge we previously sent.
-    /// If a client requests the section info, we also send it.
-    fn receive_challenge_response(
-        &self,
-        peer_addr: SocketAddr,
-        signature: &Signature,
-    ) -> Result<()> {
-        trace!("Receive challenge response");
-        if self.clients.contains_key(&peer_addr) {
-            info!("{}: Client is already accepted (on {})", self, peer_addr);
-            return Ok(());
-        }
-        if let Some((_, (challenge, public_key))) = self.client_candidates.remove(&peer_addr) {
-            match public_key.verify(&signature, challenge) {
-                Ok(()) => {
-                    info!("{}: Accepted {} on {}.", self, public_key, peer_addr,);
-                    let _ = self.clients.insert(peer_addr, public_key);
-                    Ok(())
-                }
-                Err(err) => {
-                    info!(
-                        "{}: Challenge failed for {} on {}: {}",
-                        self, public_key, peer_addr, err
-                    );
-
-                    Err(Error::Onboarding)
-                }
-            }
-        } else {
-            info!(
-                "{}: {} supplied challenge response without us providing it.",
-                self, peer_addr
-            );
-
-            Err(Error::Onboarding)
-
-            // Some(NodeMessagingDuty::DisconnectClient(peer_addr))
-        }
-    }
 
     // pub fn notify_client(&mut self, client: &XorName, receipt: &DebitAgreementProof) {
     //     for client_key in self.lookup_client_and_its_apps(client) {

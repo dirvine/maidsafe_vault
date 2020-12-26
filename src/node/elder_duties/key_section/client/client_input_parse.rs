@@ -8,9 +8,7 @@
 
 use crate::{Error, Result};
 use bytes::Bytes;
-use log::info;
-use sn_data_types::{Error as NdError, HandshakeRequest, Message, MsgEnvelope};
-use std::net::SocketAddr;
+use sn_data_types::{HandshakeRequest, Message, MsgEnvelope};
 
 /*
 Parsing of bytes received from a client,
@@ -59,21 +57,6 @@ pub fn try_deserialize_msg(bytes: &Bytes) -> Result<MsgEnvelope> {
     }
 }
 
-pub fn try_deserialize_handshake(bytes: &Bytes, peer_addr: SocketAddr) -> Result<HandshakeRequest> {
-    let hs = match bincode::deserialize(&bytes) {
-        Ok(hs @ HandshakeRequest::Bootstrap(_))
-        | Ok(hs @ HandshakeRequest::Join(_))
-        | Ok(hs @ HandshakeRequest::ChallengeResult(_)) => hs,
-        Err(err) => {
-            info!(
-                "Failed to deserialize client input from {} as a handshake: {}",
-                peer_addr, err
-            );
-            return Err(Error::NetworkData(NdError::FailedToParse(format!(
-                "Failed to deserialize client input from {} as a handshake: {}",
-                peer_addr, err
-            ))));
-        }
-    };
-    Ok(hs)
+pub fn try_deserialize_handshake(bytes: &Bytes) -> Result<HandshakeRequest> {
+    Ok(bincode::deserialize::<HandshakeRequest>(&bytes)?)
 }
