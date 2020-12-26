@@ -315,6 +315,7 @@ mod tests {
 
     #[tokio::test]
     async fn used_space_multiwriter_test() -> Result<()> {
+        use rand::{distributions::Standard, thread_rng, Rng};
         const NUMS_TO_ADD: usize = 128;
 
         // alloc store
@@ -324,8 +325,7 @@ mod tests {
         let id = used_space.add_local_store(&store_dir, Init::New).await?;
 
         // get a random vec of u64 by adding u32 (avoid overflow)
-        let mut rng = rand::thread_rng();
-        let bytes = crate::utils::random_vec(&mut rng, std::mem::size_of::<u32>() * NUMS_TO_ADD);
+        let bytes :Vec::<u64> = thread_rng().sample_iter(Standard).take(std::mem::size_of::<u32>() * NUMS_TO_ADD).collect();
         let mut nums = Vec::new();
         for chunk in bytes.as_slice().chunks_exact(std::mem::size_of::<u32>()) {
             let mut num = 0u32;
